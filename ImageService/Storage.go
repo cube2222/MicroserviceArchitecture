@@ -5,12 +5,13 @@ import (
 	"os"
 )
 
-func saveFile(name string, file io.Reader, folder string) {
+func saveFile(name string, file io.Reader, folder string) error {
 	newFile, err := os.Create("/tmp/storage/" + folder + "/" + name)
 	defer newFile.Close()
 	if err != nil {
 		logError(err)
-		return
+		return err
 	}
-	io.Copy(newFile, file)
+	_, err = io.Copy(newFile, file)
+	return err
 }
