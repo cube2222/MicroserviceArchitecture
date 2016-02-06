@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 )
@@ -11,9 +12,11 @@ func setUpRoutes() {
 	http.HandleFunc("/getImage", getImage)
 	http.HandleFunc("/finishedImage", finishedImage)
 	http.HandleFunc("/registerWorkerSupervisor", registerWorkerSupervisor)
+	http.ListenAndServe(":3000", nil)
 }
 
 func newImage(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Someone posted.")
 	if r.Method == "POST" {
 		parsedUrl, err := url.Parse(r.URL.String())
 		if err != nil {
@@ -48,11 +51,12 @@ func getImage(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintln(w, err)
 			return
 		}
-		err = getFile(parsedQuery["id"][0], "finished")
+		file, err := getFile(parsedQuery["id"][0], "finished")
 		if err != nil {
 			fmt.Fprintln(w, err)
 			return
 		}
+		io.Copy(w, file)
 	} else {
 		fmt.Fprintln(w, "ERROR: Only GET accepted.")
 	}

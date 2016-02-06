@@ -16,7 +16,7 @@ func saveFile(name string, file io.Reader, folder string) error {
 	return err
 }
 
-func getFile(name string, folder string) (os.File, error) {
+func getFile(name string, folder string) (*os.File, error) {
 	file, err := os.Open("/tmp/storage" + folder + "/" + name)
 	return file, err
 }
