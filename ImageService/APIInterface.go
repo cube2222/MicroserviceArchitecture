@@ -30,6 +30,7 @@ func newImage(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintln(w, err)
 			return
 		}
+		//TODO: Register upcoming work on file to do with use of parsedQuery["id"][0]
 	} else {
 		fmt.Fprintln(w, "ERROR: Only POST accepted.")
 	}
@@ -37,7 +38,21 @@ func newImage(w http.ResponseWriter, r *http.Request) {
 
 func getImage(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		//Do stuff...
+		parsedUrl, err := url.Parse(r.URL.String())
+		if err != nil {
+			fmt.Fprintln(w, err)
+			return
+		}
+		parsedQuery, err := url.ParseQuery(parsedUrl.RawQuery)
+		if err != nil {
+			fmt.Fprintln(w, err)
+			return
+		}
+		err = getFile(parsedQuery["id"][0], "finished")
+		if err != nil {
+			fmt.Fprintln(w, err)
+			return
+		}
 	} else {
 		fmt.Fprintln(w, "ERROR: Only GET accepted.")
 	}
