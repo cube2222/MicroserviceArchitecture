@@ -16,7 +16,6 @@ func setUpRoutes() {
 }
 
 func newImage(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Someone posted.")
 	if r.Method == "POST" {
 		parsedUrl, err := url.Parse(r.URL.String())
 		if err != nil {
@@ -64,7 +63,22 @@ func getImage(w http.ResponseWriter, r *http.Request) {
 
 func finishedImage(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		//Do stuff...
+		parsedUrl, err := url.Parse(r.URL.String())
+		if err != nil {
+			fmt.Fprintln(w, err)
+			return
+		}
+		parsedQuery, err := url.ParseQuery(parsedUrl.RawQuery)
+		if err != nil {
+			fmt.Fprintln(w, err)
+			return
+		}
+		err = saveFile(parsedQuery["id"][0], r.Body, "finished")
+		if err != nil {
+			fmt.Fprintln(w, err)
+			return
+		}
+		//TODO: Register finished work on file to do with use of parsedQuery["id"][0]
 	} else {
 		fmt.Fprintln(w, "ERROR: Only POST accepted.")
 	}
