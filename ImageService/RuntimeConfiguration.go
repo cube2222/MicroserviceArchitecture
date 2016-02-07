@@ -7,8 +7,8 @@ type WorkerPoolSupervisorRegister struct {
 	Port    string
 }
 
-func registerWorkerPoolSupervisor(Supervisor WorkerPoolSupervisorRegister) {
-	session, err := mgo.Dial("localhost:27017")
+func registerWorkerPoolSupervisor(Supervisor WorkerPoolSupervisorRegister, databaseAddress string) {
+	session, err := mgo.Dial(databaseAddress)
 	if err != nil {
 		logError(err)
 		return

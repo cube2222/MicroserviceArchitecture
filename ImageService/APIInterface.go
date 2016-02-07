@@ -7,12 +7,21 @@ import (
 	"net/url"
 )
 
-func setUpRoutes() {
+func setUpRoutes(exitChan chan bool, databaseAddress string) {
 	http.HandleFunc("/newImage", newImage)
 	http.HandleFunc("/getImage", getImage)
 	http.HandleFunc("/finishedImage", finishedImage)
-	http.HandleFunc("/registerWorkerSupervisor", registerWorkerSupervisor)
+	http.Handle("/registerWorkerSupervisor", registerWorkerSupervisorHandler{databaseAddress})
+	http.Handle("/exit", exitHandler{exitChan})
 	http.ListenAndServe(":3000", nil)
+}
+
+type exitHandler struct {
+	exitChan chan bool
+}
+
+func (i exitHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	i.exitChan <- true
 }
 
 func newImage(w http.ResponseWriter, r *http.Request) {
@@ -84,7 +93,11 @@ func finishedImage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func registerWorkerSupervisor(w http.ResponseWriter, r *http.Request) {
+type registerWorkerSupervisorHandler struct {
+	databaseAddress string
+}
+
+func (i registerWorkerSupervisorHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		parsedUrl, err := url.Parse(r.URL.String())
 		if err != nil {
@@ -99,7 +112,7 @@ func registerWorkerSupervisor(w http.ResponseWriter, r *http.Request) {
 		newSupervisor := WorkerPoolSupervisorRegister{}
 		newSupervisor.Address = parsedQuery["address"][0]
 		newSupervisor.Port = parsedQuery["port"][0]
-		registerWorkerPoolSupervisor(newSupervisor)
+		registerWorkerPoolSupervisor(newSupervisor, i.databaseAddress)
 	} else {
 		fmt.Fprintln(w, "ERROR: Only GET accepted.")
 	}
