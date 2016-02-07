@@ -86,7 +86,20 @@ func finishedImage(w http.ResponseWriter, r *http.Request) {
 
 func registerWorkerSupervisor(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		//Do stuff...
+		parsedUrl, err := url.Parse(r.URL.String())
+		if err != nil {
+			fmt.Fprintln(w, err)
+			return
+		}
+		parsedQuery, err := url.ParseQuery(parsedUrl.RawQuery)
+		if err != nil {
+			fmt.Fprintln(w, err)
+			return
+		}
+		newSupervisor := WorkerPoolSupervisorRegister{}
+		newSupervisor.Address = parsedQuery["address"][0]
+		newSupervisor.Port = parsedQuery["port"][0]
+		registerWorkerPoolSupervisor(newSupervisor)
 	} else {
 		fmt.Fprintln(w, "ERROR: Only GET accepted.")
 	}

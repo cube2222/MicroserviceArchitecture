@@ -8,7 +8,7 @@ type WorkerPoolSupervisorRegister struct {
 }
 
 func registerWorkerPoolSupervisor(Supervisor WorkerPoolSupervisorRegister) {
-	session, err := mgo.Dial("")
+	session, err := mgo.Dial("localhost:27017")
 	if err != nil {
 		logError(err)
 		return
