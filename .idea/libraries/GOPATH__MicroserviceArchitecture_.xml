@@ -4,6 +4,7 @@
       <root url="file://C:/Gopath/src/golang.org" />
       <root url="file://C:/Gopath/src/9fans.net" />
       <root url="file://C:/Gopath/src/github.com" />
+      <root url="file://C:/Gopath/src/gopkg.in" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
@@ -38,6 +39,7 @@
       <root url="file://C:/Gopath/src/golang.org/x/tools/cmd/bundle/testdata" />
       <root url="file://C:/Gopath/src/golang.org/x/tools/go/ssa/testdata" />
       <root url="file://$PROJECT_DIR$" />
+      <root url="file://C:/Gopath/src/gopkg.in/mgo.v2/.git" />
       <root url="file://C:/Gopath/src/github.com/gorilla/context/.git" />
       <root url="file://C:/Gopath/src/golang.org/x/tools/go/callgraph/cha/testdata" />
       <root url="file://C:/Gopath/src/golang.org/x/tools/cmd/vet/testdata" />

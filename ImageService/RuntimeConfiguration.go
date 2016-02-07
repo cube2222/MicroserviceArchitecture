@@ -14,7 +14,7 @@ func registerWorkerPoolSupervisor(Supervisor WorkerPoolSupervisorRegister) {
 		return
 	}
 	defer session.Close()
-	c := session.DB("configuration").C("WorkerPoolSupervisors")
+	c := session.DB("Configuration").C("WorkerPoolSupervisors")
 
 	err = c.Insert(&Supervisor)
 	if err != nil {
