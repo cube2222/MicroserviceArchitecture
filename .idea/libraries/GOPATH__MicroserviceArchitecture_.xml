@@ -1,14 +1,24 @@
 <component name="libraryTable">
   <library name="GOPATH &lt;MicroserviceArchitecture&gt;">
     <CLASSES>
-      <root url="file://C:/Development/Libraries/Gopath/src/github.com" />
+      <root url="file://C:/GoPackages/src/gopkg.in" />
+      <root url="file://C:/GoPackages/src/github.com" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
     <excluded>
+      <root url="file://C:/GoPackages/src/github.com/Workiva/go-datastructures/btree/_link" />
+      <root url="file://C:/GoPackages/src/github.com/rakyll/boom/.git" />
+      <root url="file://C:/GoPackages/src/gopkg.in/mgo.v2/.git" />
+      <root url="file://C:/GoPackages/src/github.com/gorilla/context/.git" />
+      <root url="file://C:/GoPackages/src/github.com/rakyll/pb/.git" />
+      <root url="file://C:/GoPackages/src/github.com/cube2222/ImageFileMicroservices/.git" />
+      <root url="file://C:/GoPackages/src/github.com/gorilla/mux/.git" />
+      <root url="file://C:/GoPackages/src/github.com/Workiva/go-datastructures/.git" />
       <root url="file://$PROJECT_DIR$" />
-      <root url="file://C:/Development/Libraries/Gopath/src/github.com/gorilla/context/.git" />
-      <root url="file://C:/Development/Libraries/Gopath/src/github.com/gorilla/mux/.git" />
+      <root url="file://C:/GoPackages/src/github.com/satori/go.uuid/.git" />
+      <root url="file://C:/GoPackages/src/github.com/cube2222/ImageFileMicroservices/.idea" />
+      <root url="file://C:/GoPackages/src/github.com/olekukonko/ts/.git" />
     </excluded>
   </library>
 </component>

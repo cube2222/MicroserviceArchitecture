@@ -8,7 +8,7 @@ import (
 )
 
 func setUpRoutes(exitChan chan bool, databaseAddress string) {
-	http.HandleFunc("/newImage", newImage)
+	http.Handle("/newImage", newImageHandler{databaseAddress})
 	http.HandleFunc("/getImage", getImage)
 	http.HandleFunc("/finishedImage", finishedImage)
 	http.Handle("/registerWorkerSupervisor", registerWorkerSupervisorHandler{databaseAddress})
@@ -24,7 +24,11 @@ func (i exitHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	i.exitChan <- true
 }
 
-func newImage(w http.ResponseWriter, r *http.Request) {
+type newImageHandler struct {
+	databaseAddress string
+}
+
+func (i newImageHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		parsedURL, err := url.Parse(r.URL.String())
 		if err != nil {
@@ -41,7 +45,7 @@ func newImage(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintln(w, err)
 			return
 		}
-		//TODO: Register upcoming work on file to do with use of parsedQuery["id"][0]
+		registerWorkToDo(parsedQuery["id"][0], i.databaseAddress)
 	} else {
 		fmt.Fprintln(w, "ERROR: Only POST accepted.")
 	}
