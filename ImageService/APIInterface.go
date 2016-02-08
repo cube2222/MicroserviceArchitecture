@@ -26,12 +26,12 @@ func (i exitHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func newImage(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		parsedUrl, err := url.Parse(r.URL.String())
+		parsedURL, err := url.Parse(r.URL.String())
 		if err != nil {
 			fmt.Fprintln(w, err)
 			return
 		}
-		parsedQuery, err := url.ParseQuery(parsedUrl.RawQuery)
+		parsedQuery, err := url.ParseQuery(parsedURL.RawQuery)
 		if err != nil {
 			fmt.Fprintln(w, err)
 			return
@@ -49,12 +49,12 @@ func newImage(w http.ResponseWriter, r *http.Request) {
 
 func getImage(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		parsedUrl, err := url.Parse(r.URL.String())
+		parsedURL, err := url.Parse(r.URL.String())
 		if err != nil {
 			fmt.Fprintln(w, err)
 			return
 		}
-		parsedQuery, err := url.ParseQuery(parsedUrl.RawQuery)
+		parsedQuery, err := url.ParseQuery(parsedURL.RawQuery)
 		if err != nil {
 			fmt.Fprintln(w, err)
 			return
@@ -72,12 +72,12 @@ func getImage(w http.ResponseWriter, r *http.Request) {
 
 func finishedImage(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		parsedUrl, err := url.Parse(r.URL.String())
+		parsedURL, err := url.Parse(r.URL.String())
 		if err != nil {
 			fmt.Fprintln(w, err)
 			return
 		}
-		parsedQuery, err := url.ParseQuery(parsedUrl.RawQuery)
+		parsedQuery, err := url.ParseQuery(parsedURL.RawQuery)
 		if err != nil {
 			fmt.Fprintln(w, err)
 			return
@@ -99,12 +99,12 @@ type registerWorkerSupervisorHandler struct {
 
 func (i registerWorkerSupervisorHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		parsedUrl, err := url.Parse(r.URL.String())
+		parsedURL, err := url.Parse(r.URL.String())
 		if err != nil {
 			fmt.Fprintln(w, err)
 			return
 		}
-		parsedQuery, err := url.ParseQuery(parsedUrl.RawQuery)
+		parsedQuery, err := url.ParseQuery(parsedURL.RawQuery)
 		if err != nil {
 			fmt.Fprintln(w, err)
 			return
